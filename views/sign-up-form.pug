@@ -1,3 +1,24 @@
 extends layout
 
-h1 Sign Up
+block content
+
+	h1 Sign Up
+	
+	form(action="" method="post")
+		div
+			label(for="first-name") First name
+			input(type="text" name="first-name" id="first-name" required)
+		div
+			label(for="last-name") Last name
+			input(type="text" name="last-name" id="last-name" required)
+		div
+			label(for="username") Username
+			input(type="text" name="username" id="username" required)
+		div
+			label(for="password") Password
+			input(type="text" name="password" id="password" required)
+		div
+			label(for="password-conrifmation") Retype password
+			input(type="text" name="password-conrifmation" id="password-conrifmation" required)
+		div
+			button(type="submit") Sign up
