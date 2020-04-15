@@ -4,6 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
@@ -13,7 +14,8 @@ const app = express();
 const user = process.env.username;
 const pass = process.env.password;
 const host = process.env.host;
-const db = process.env.database;
+const dbase = process.env.database;
+
 const mongoDB =
   "mongodb+srv://" +
   user +
@@ -22,8 +24,12 @@ const mongoDB =
   "@" +
   host +
   "/" +
-  db +
+  dbase +
   "?retryWrites=true&w=majority";
+
+mongoose.connect(mongoDB, { useNewUrlParser: true });
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
