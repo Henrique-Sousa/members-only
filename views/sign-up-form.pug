@@ -2,23 +2,28 @@ extends layout
 
 block content
 
-	h1 Sign Up
-	
-	form(action="" method="post")
-		div
-			label(for="first_name") First name
-			input(type="text" name="first_name" id="first_name" required)
-		div
-			label(for="last_name") Last name
-			input(type="text" name="last_name" id="last_name" required)
-		div
-			label(for="username") Username
-			input(type="text" name="username" id="username" required)
-		div
-			label(for="password") Password
-			input(type="text" name="password" id="password" required)
-		div
-			label(for="password_conrifmation") Retype password
-			input(type="text" name="password_confirmation" id="password_confirmation" required)
-		div
-			button(type="submit") Sign up
+ h1 Sign Up
+ 
+ form(action="" method="post")
+  div
+   label(for="first_name") First name
+   input(type="text" name="first_name" id="first_name" required value=(user ? user.first_name : "" ))
+  div
+   label(for="last_name") Last name
+   input(type="text" name="last_name" id="last_name" required value=(user ? user.last_name : ""))
+  div
+   label(for="username") Username
+   input(type="text" name="username" id="username" required value=(user ? user.username : ""))
+  div
+   label(for="password") Password
+   input(type="text" name="password" id="password" required)
+  div
+   label(for="password_conrifmation") Retype password
+   input(type="text" name="password_confirmation" id="password_confirmation" required)
+  div
+   button(type="submit") Sign up
+
+  if errors
+    ul
+      for error in errors
+        li.error!= error.msg

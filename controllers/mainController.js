@@ -1,4 +1,8 @@
 const { body, validationResult } = require("express-validator");
+const passport = require("passport"),
+  LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
+const User = require("../models/user");
 
 exports.sign_up_get = function (req, res) {
   res.render("sign-up-form");
@@ -26,13 +30,42 @@ exports.sign_up_post = [
     .isAlphanumeric()
     .withMessage("Username has non-alphanumeric characters")
     .escape(),
-  //res.send("sign up on post");
+  body("password")
+    .notEmpty()
+    .withMessage("Password must be specified")
+    .custom((value, { req, loc, path }) => {
+      if (value != req.body.password_confirmation) {
+        throw new Error("Passwords must match.");
+      } else {
+        return value;
+      }
+    }),
+  body("password_confirmation")
+    .notEmpty()
+    .withMessage("Password confirmation must be specified"),
   (req, res, next) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.send("ok");
-    } else {
-      res.send("error");
-    }
+    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+      if (err) {
+        return next(err);
+      }
+      const user = new User({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        username: req.body.username,
+        password: hashedPassword,
+        membership_status: "standard"
+      });
+      if (errors.isEmpty()) {
+        user.save(err => {
+          if (err) {
+            return next(err);
+          }
+          res.redirect("/");
+        });
+      } else {
+        res.render("sign-up-form", { user, errors: errors.array() });
+      }
+    });
   }
 ];
