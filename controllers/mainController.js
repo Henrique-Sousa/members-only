@@ -69,3 +69,7 @@ exports.sign_up_post = [
     });
   }
 ];
+
+exports.log_in_get = function (req, res) {
+  res.render("log-in-form");
+};
