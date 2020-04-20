@@ -3,4 +3,14 @@ extends layout
 block content
 
   h1 Log in
+  
+  form(action="" method="post")
+    div.form-group
+      label(for="username") Username
+      input.form-control(type="text" id="username" name="username")
+    div.form-group
+      label(for="password") Username
+      input.form-control(type="text" id="password" name="password")
+    button.btn.btn-primary(type="submit") Log in
 
+        
