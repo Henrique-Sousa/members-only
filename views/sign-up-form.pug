@@ -4,24 +4,23 @@ block content
 
  h1 Sign Up
  
- form.form-group(action="" method="post")
-  div
+ form(action="" method="post")
+  div.form-group
    label(for="first_name") First name
    input.form-control(type="text" name="first_name" id="first_name" required value=(user ? user.first_name : "" ))
-  div
+  div.form-group
    label(for="last_name") Last name
    input.form-control(type="text" name="last_name" id="last_name" required value=(user ? user.last_name : ""))
-  div
+  div.form-group
    label(for="username") Username
    input.form-control(type="text" name="username" id="username" required value=(user ? user.username : ""))
-  div
+  div.form-group
    label(for="password") Password
    input.form-control(type="text" name="password" id="password" required)
-  div
+  div.form-group
    label(for="password_conrifmation") Retype password
    input.form-control(type="text" name="password_confirmation" id="password_confirmation" required)
-  div
-   button.btn.btn-primary(type="submit") Sign up
+  button.btn.btn-primary(type="submit") Sign up
 
   if errors
     ul
