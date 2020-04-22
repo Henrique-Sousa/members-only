@@ -12,4 +12,7 @@ router.get("/sign-up", main_controller.sign_up_get);
 router.post("/sign-up", main_controller.sign_up_post);
 router.get("/log-in", main_controller.log_in_get);
 
+router.get("/success", (req, res) => res.render("success"));
+router.get("/failure", (req, res) => res.render("failure"));
+
 module.exports = router;
