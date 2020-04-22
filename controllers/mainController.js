@@ -1,7 +1,4 @@
 const { body, validationResult } = require("express-validator");
-const passport = require("passport"),
-  LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 exports.sign_up_get = function (req, res) {
