@@ -59,7 +59,7 @@ exports.sign_up_post = [
           if (err) {
             return next(err);
           }
-          res.redirect("/");
+          res.redirect("/join");
         });
       } else {
         res.render("sign-up-form", { user, errors: errors.array() });
