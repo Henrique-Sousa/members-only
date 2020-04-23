@@ -67,3 +67,7 @@ exports.sign_up_post = [
     });
   },
 ];
+
+exports.join_get = function (req, res) {
+  res.render("join-form");
+};

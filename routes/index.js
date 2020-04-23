@@ -14,6 +14,6 @@ router.post("/sign-up", main_controller.sign_up_post);
 router.get("/success", (req, res) => res.render("success"));
 router.get("/failure", (req, res) => res.render("failure"));
 
-router.get("/join", (req, res) => res.render("join-form"));
+router.get("/join", main_controller.join_get);
 
 module.exports = router;
