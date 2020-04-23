@@ -51,10 +51,10 @@ exports.sign_up_post = [
         last_name: req.body.last_name,
         username: req.body.username,
         password: hashedPassword,
-        membership_status: false
+        membership_status: false,
       });
       if (errors.isEmpty()) {
-        user.save(err => {
+        user.save((err) => {
           if (err) {
             return next(err);
           }
@@ -64,9 +64,5 @@ exports.sign_up_post = [
         res.render("sign-up-form", { user, errors: errors.array() });
       }
     });
-  }
+  },
 ];
-
-exports.log_in_get = function (req, res) {
-  res.render("log-in-form");
-};

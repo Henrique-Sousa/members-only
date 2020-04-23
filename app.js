@@ -86,11 +86,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/log-in", function (req, res) {
+  res.render("log-in-form");
+});
+
 app.post(
   "/log-in",
   passport.authenticate("local", {
     successRedirect: "/success",
-    failureRedirect: "/failure"
+    failureRedirect: "/failure",
   })
 );
 
