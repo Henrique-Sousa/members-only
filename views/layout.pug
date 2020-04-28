@@ -20,14 +20,26 @@ html
         span.navbar-toggler-icon
       div#navbarSupportedContent.collapse.navbar-collapse
         ul.navbar-nav.mr-auto
-          li.nav-item
-            a.nav-link(
-              id="navbarDropdown", 
-              href="/sign-up", 
-              ) Sign up 
-          li.nav-item
-            a.nav-link(
-              id="navbarDropdown", 
-              href="/log-in", 
-              ) Log in 
+          if user
+            li.nav-item
+              a.nav-link(
+                id="navbarDropdown", 
+                href="/member", 
+                ) Become member 
+            li.nav-item
+              a.nav-link(
+                id="navbarDropdown", 
+                href="/log-out", 
+                ) Log out
+          else
+            li.nav-item
+              a.nav-link(
+                id="navbarDropdown", 
+                href="/sign-up", 
+                ) Sign up 
+            li.nav-item
+              a.nav-link(
+                id="navbarDropdown", 
+                href="/log-in", 
+                ) Log in 
     block content

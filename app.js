@@ -95,6 +95,11 @@ app.post(
   })
 );
 
+app.get("/log-out", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
