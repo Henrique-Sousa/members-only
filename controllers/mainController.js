@@ -43,6 +43,7 @@ exports.sign_up_post = [
     .withMessage("Password confirmation must be specified"),
   (req, res, next) => {
     const errors = validationResult(req);
+    const passcode = "123456";
     bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
       if (err) {
         return next(err);
@@ -52,7 +53,7 @@ exports.sign_up_post = [
         last_name: req.body.last_name,
         username: req.body.username,
         password: hashedPassword,
-        membership_status: false,
+        membership_status: req.body.passcode === passcode,
       });
       if (errors.isEmpty()) {
         user.save((err) => {

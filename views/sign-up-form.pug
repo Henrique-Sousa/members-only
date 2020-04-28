@@ -20,6 +20,9 @@ block content
   div.form-group
    label(for="password_conrifmation") Retype password
    input.form-control(type="password" name="password_confirmation" id="password_confirmation" required)
+  div.form-group
+   label(for="passcode") Do you have a passcode?
+   input.form-control(type="text" name="passcode" id="passcode")
   button.btn.btn-primary(type="submit") Sign up
 
   if errors
