@@ -15,4 +15,6 @@ router.post("/member", main_controller.member_post);
 router.get("/new-message", main_controller.new_message_get);
 router.post("/new-message", main_controller.new_message_post);
 
+router.post("/delete", main_controller.delete_post);
+
 module.exports = router;

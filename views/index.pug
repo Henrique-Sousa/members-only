@@ -16,3 +16,9 @@ block content
         p= msg.timestamp
         p
           b= msg.author.username
+      if user && user.admin
+        form(action="/delete" method="post")
+          div.form-group
+            input.form-control(type="hidden" name="msg_id" value=msg._id)
+          button.btn.btn-primary(type="submit") Delete
+      

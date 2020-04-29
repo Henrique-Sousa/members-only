@@ -119,3 +119,12 @@ exports.new_message_post = function (req, res, next) {
     res.redirect("/");
   });
 };
+
+exports.delete_post = function (req, res) {
+  Message.findByIdAndDelete(req.body.msg_id, function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+};
