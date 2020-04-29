@@ -6,6 +6,9 @@ block content
 
   form(action="" method="post")
     div.form-group
-      label(for="message") Type your message
+      label(for="title") Title
+      input.form-control(type="text" name="title" id="title" required)
+    div.form-group
+      label(for="message") Message
       textarea.form-control(name="message" id="message" required)
     button.btn.btn-primary(type="submit") Post
