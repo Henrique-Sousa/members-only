@@ -67,3 +67,25 @@ exports.sign_up_post = [
     });
   },
 ];
+
+exports.member_get = function (req, res) {
+  if (req.user) {
+    res.render("member", { user: req.user });
+  } else {
+    res.redirect("/");
+  }
+};
+
+exports.member_post = function (req, res) {
+  if (req.body.passcode === "123456") {
+    User.findByIdAndUpdate(
+      req.user._id,
+      { membership_status: true },
+      (err, user) => {
+        res.redirect("/");
+      }
+    );
+  } else {
+    res.render("member", { error: "wrong passcode", user: req.user });
+  }
+};

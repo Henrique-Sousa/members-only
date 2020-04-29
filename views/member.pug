@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 Become a member
+  form(action="" method="post")
+    div.form-group
+      label(for="first_name") Type your passcode
+      input.form-control(type="text" name="passcode" id="passcode")
+    button.btn.btn-primary(type="submit") Send
+
+  if error
+    ul
+      li.error= error
