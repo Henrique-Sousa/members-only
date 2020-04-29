@@ -4,9 +4,7 @@ var router = express.Router();
 var main_controller = require("../controllers/mainController");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", { title: "Clubhouse", user: req.user });
-});
+router.get("/", main_controller.index_get);
 
 router.get("/sign-up", main_controller.sign_up_get);
 router.post("/sign-up", main_controller.sign_up_post);

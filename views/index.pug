@@ -6,4 +6,13 @@ block content
   if user
     p= user.username
     a(href="/new-message") Create a new message
-  
+
+    h2 Feed
+    for msg in msgs
+      div
+        h3= msg.title
+        p= msg.text
+        if user.membership_status
+          p= msg.timestamp
+          p
+            b= msg.author.username

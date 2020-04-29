@@ -3,6 +3,18 @@ const User = require("../models/user");
 const Message = require("../models/message");
 const bcrypt = require("bcryptjs");
 
+exports.index_get = function (req, res, next) {
+  if (req.user) {
+    Message.find({})
+      .populate("author")
+      .exec(function (err, msgs) {
+        res.render("index", { title: "Clubhouse", user: req.user, msgs });
+      });
+  } else {
+    res.render("index", { title: "Clubhouse" });
+  }
+};
+
 exports.sign_up_get = function (req, res) {
   res.render("sign-up-form");
 };
