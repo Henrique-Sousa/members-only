@@ -65,7 +65,6 @@ exports.sign_up_post = [
         last_name: req.body.last_name,
         username: req.body.username,
         password: hashedPassword,
-        membership_status: false,
       });
       if (errors.isEmpty()) {
         user.save((err) => {
