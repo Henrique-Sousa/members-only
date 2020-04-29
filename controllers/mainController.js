@@ -1,5 +1,6 @@
 const { body, validationResult } = require("express-validator");
 const User = require("../models/user");
+const Message = require("../models/message");
 const bcrypt = require("bcryptjs");
 
 exports.sign_up_get = function (req, res) {
@@ -88,4 +89,25 @@ exports.member_post = function (req, res) {
   } else {
     res.render("member", { error: "wrong passcode", user: req.user });
   }
+};
+
+exports.new_message_get = function (req, res) {
+  if (req.user) {
+    res.render("new-message", { user: req.user });
+  } else {
+    res.redirect("/");
+  }
+};
+
+exports.new_message_post = function (req, res, next) {
+  const message = new Message({
+    title: req.body.title,
+    text: req.body.message,
+    author: req.user,
+  }).save(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
 };
