@@ -20,6 +20,9 @@ block content
   div.form-group
    label(for="password_conrifmation") Retype password
    input.form-control(type="password" name="password_confirmation" id="password_confirmation" required)
+  div.form-group
+   label(for="admin") Admin
+   input.form-check(type="checkbox" name="admin" id="admin")
   button.btn.btn-primary(type="submit") Sign up
 
   if errors
