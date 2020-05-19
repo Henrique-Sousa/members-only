@@ -8,9 +8,12 @@ const passport = require("passport");
 const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
-require("dotenv").config();
 const compression = require("compression");
 const helmet = require("helmet");
+
+if (process.env.NODE_ENV != 'production') {
+  require("dotenv").config();
+} 
 
 const User = require("./models/user");
 
@@ -22,8 +25,7 @@ const pass = process.env.password;
 const host = process.env.host;
 const dbase = process.env.database;
 
-const mongoDB =
-  "mongodb+srv://" +
+const mongoDB = ((process.env.NODE_ENV == 'production') ? process.env.MONGODB_URI : "mongodb+srv://" +
   user +
   ":" +
   pass +
@@ -31,7 +33,7 @@ const mongoDB =
   host +
   "/" +
   dbase +
-  "?retryWrites=true&w=majority";
+  "?retryWrites=true&w=majority");
 
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 const db = mongoose.connection;
