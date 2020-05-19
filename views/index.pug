@@ -12,8 +12,8 @@ block content
     div
       h3= msg.title
       p= msg.text
+      p= msg.timestamp
       if user && user.membership_status
-        p= msg.timestamp
         p
           b= msg.author.username
       if user && user.admin
