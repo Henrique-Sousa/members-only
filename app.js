@@ -9,7 +9,8 @@ const session = require("express-session");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
-const compression = require("compression")
+const compression = require("compression");
+const helmet = require("helmet");
 
 const User = require("./models/user");
 
@@ -38,6 +39,8 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const app = express();
 app.use(compression());
+app.use(helmet());
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
