@@ -2,6 +2,9 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/user");
 const Message = require("../models/message");
 const bcrypt = require("bcryptjs");
+const { promisify } = require("util")
+
+const hash = promisify(bcrypt.hash);
 
 exports.index_get = function (req, res, next) {
   Message.find({})
@@ -50,31 +53,31 @@ exports.sign_up_post = [
   body("password_confirmation")
     .notEmpty()
     .withMessage("Password confirmation must be specified"),
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
-    bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
-      if (err) {
-        return next(err);
-      }
-      const user = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        password: hashedPassword,
-        admin: req.body.admin == "on",
-      });
-      if (errors.isEmpty()) {
+    if (errors.isEmpty()) {
+      try {
+        const hashedPassword = await hash(req.body.password, 10);
+        const user = new User({
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
+          username: req.body.username,
+          password: hashedPassword,
+          admin: req.body.admin == "on",
+        });
         user.save((err) => {
           if (err) {
             return next(err);
           }
           res.redirect("/");
         });
-      } else {
-        res.render("sign-up-form", { user, errors: errors.array() });
+      } catch (err) {
+        return next(err);
       }
-    });
-  },
+    } else {
+      res.render("sign-up-form", { user, errors: errors.array() });
+    }
+  }
 ];
 
 exports.member_get = function (req, res) {
