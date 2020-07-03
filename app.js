@@ -6,14 +6,13 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const session = require("express-session");
-const LocalStrategy = require("passport-local").Strategy;
-const bcrypt = require("bcryptjs");
 const compression = require("compression");
 const helmet = require("helmet");
+const passport_controller = require("./controllers/passportController")
 
 if (process.env.NODE_ENV != 'production') {
   require("dotenv").config();
-} 
+}
 
 const User = require("./models/user");
 
@@ -53,27 +52,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-      if (err) {
-        return done(err);
-      }
-      if (!user) {
-        return done(null, false, { msg: "Incorrect username" });
-      }
-      bcrypt.compare(password, user.password, (err, res) => {
-        if (res) {
-          // passwords match! log user in
-          return done(null, user);
-        } else {
-          // passwords do not match!
-          return done(null, false, { msg: "Incorrect password" });
-        }
-      });
-    });
-  })
-);
+passport.use(passport_controller.comparePassword());
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -89,23 +68,6 @@ app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
-
-app.get("/log-in", function (req, res) {
-  res.render("log-in-form");
-});
-
-app.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/log-in",
-  })
-);
-
-app.get("/log-out", (req, res) => {
-  req.logout();
-  res.redirect("/");
-});
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
