@@ -1,24 +1,27 @@
 extends layout
 
 block content
-  p Welcome to Clubhouse 
+  div#greetings
+    p Welcome to Clubhouse 
 
-  if user
-    p= user.username
-    a(href="/new-message") Create a new message
-
-  h2 Feed
-  for msg in msgs
-    div
-      h3= msg.title
-      p= msg.text
-      p= msg.timestamp
-      if user && user.membership_status
-        p
-          b= msg.author.username
-      if user && user.admin
-        form(action="/delete" method="post")
-          div.form-group
-            input.form-control(type="hidden" name="msg_id" value=msg._id)
-          button.btn.btn-primary(type="submit") Delete
-      
+    if user
+      p= user.username
+      a(href="/new-message") Create a new message
+  
+  main
+    h2 Feed
+    for msg in msgs
+      div.card
+        div.card-body
+          h3.card-title= msg.title
+          p.card-text= msg.text
+          p= msg.timestamp
+          if user && user.membership_status 
+            p
+              b= msg.author.username
+          if user && user.admin
+            form(action="/delete" method="post")
+              div.form-group
+                input.form-control(type="hidden" name="msg_id" value=msg._id)
+              button.btn.btn-primary(type="submit") Delete
+        

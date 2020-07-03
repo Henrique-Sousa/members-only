@@ -10,3 +10,16 @@ a {
 li.error {
   color: #FF0000;
 }
+
+div.card {
+  margin-top:20px;
+}
+
+#greetings {
+  margin-top: 20px;
+}
+
+main {
+  margin-top: 60px;
+}
+
