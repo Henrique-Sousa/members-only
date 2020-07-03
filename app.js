@@ -52,7 +52,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-passport.use(passport_controller.comparePassword());
+passport.use(passport_controller.comparePassword);
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
