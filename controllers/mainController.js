@@ -10,7 +10,7 @@ exports.index_get = function (req, res, next) {
   Message.find({})
     .populate("author")
     .exec(function (err, msgs) {
-      res.render("index", { title: "Clubhouse", user: req.user, msgs });
+      res.render("index", { title: "Members Only", user: req.user, msgs });
     });
 };
 
